@@ -66,7 +66,7 @@ class FullField(BaseField):
         self.ax.add_patch(a_box)
         self.ax.add_patch(a_penalty_mark)
         self.ax.add_patch(a_penalty_arc)
-        self.ax.text(5, 125.5, u'CIFUT %s' % now.year, ha="right", va="top", size=8)
+        self.ax.text(5, 125.5, u'SOCCER.io %s' % now.year, ha="right", va="top", size=8)
 
         if home:
             self.ax.text(96, 5, home, ha="right", va="top", size=10, rotation="vertical")
