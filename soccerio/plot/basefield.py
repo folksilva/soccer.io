@@ -5,6 +5,7 @@ Estrutura base para um campo de futebol no PyPlot
 """
 
 import matplotlib.pyplot as plt
+from soccerio.data import Team, Player, Event
 
 
 class BaseField(object):
@@ -34,18 +35,23 @@ class BaseField(object):
         self.teams = []
         self.players = []
         self.events = []
-        
 
-    def add_team(self, team, display=False, **kwargs):
+
+    def add_team(self, team, **kwargs):
         """
         Adiciona uma equipe ao campo
 
         Se team não for uma instância de soccerio.data.Team, cria uma nova instância
         usando team como name e **kwargs para os outros parâmetros.
 
-        Se display for True, a equipe será incluída imediatamente na figura.
         """
-        pass
+        if not isinstance(team, Team):
+            if isinstance(team, str):
+                team = Team(team, **kwargs)
+            else:
+                raise ValueError("'team' must be a soccerio.data.Team or a str")
+
+        self.teams.append(team)
 
 
     def add_player(self, player, display=False, **kwargs):
@@ -69,7 +75,9 @@ class BaseField(object):
 
         Se display for True, o evento será incluído imediatamente na figura.
         """
-        pass
+        self.events.append(event)
+        if display:
+            self.ax.add_patch(event.patch)
 
 
     def display_players(self, team=None, legend=True, **kwargs):
@@ -78,8 +86,8 @@ class BaseField(object):
 
         Se team for igual a None, todos os jogadores serão exibidos, as cores serão
         baseadas nas cores dos jogadores. Se team for uma string ou uma instância de
-        soccerio.data.Team, apenas os jogadores dessa equipe serão exibidos, as 
-        cores serão baseadas nas cores dos jogadores. Se team for uma lista de 
+        soccerio.data.Team, apenas os jogadores dessa equipe serão exibidos, as
+        cores serão baseadas nas cores dos jogadores. Se team for uma lista de
         strings ou uma lista de soccerio.data.Team, apenas os jogadores das equipes
         selecionadas serão exibidos, as cores serão baseadas nas cores dos jogadores.
 
@@ -93,9 +101,9 @@ class BaseField(object):
         """
         Inclui na figura os eventos do campo
 
-        Se player for igual a None, os eventos de todos os jogadores serão exibidos. 
-        Se player for uma string ou uma instância de soccerio.data.Player, apenas 
-        os eventos desse jogador serão exibidos. Se player for uma lista de strings 
+        Se player for igual a None, os eventos de todos os jogadores serão exibidos.
+        Se player for uma string ou uma instância de soccerio.data.Player, apenas
+        os eventos desse jogador serão exibidos. Se player for uma lista de strings
         ou de soccerio.data.Player, apenas os eventos desses jogadores serão exibidos.
 
         Se event_type for igual a None, os eventos de todos os tipos serão exibidos.

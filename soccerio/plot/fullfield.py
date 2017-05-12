@@ -14,16 +14,15 @@ class FullField(BaseField):
     """Desenha um campo de futebol completo e retorna a figura e o axis"""
 
     def __init__(self, title=None, home=None, away=None, **kwargs):
-        super(BaseField, self).__init__()
-        BaseField.__init__(self, title, **kwargs)
+        super(FullField, self).__init__(title, **kwargs)
         self.home = home
         self.away = away
         now = datetime.now()
 
-        simple_arrow_style = ArrowStyle("Simple", head_length=4, head_width=4)
-        
+        simple_arrow = ArrowStyle("Simple", head_length=4, head_width=4)
+
         field = Rectangle((5, 5), 90, 120, facecolor=self.fc, edgecolor=self.ec)
-        tr_corner = Arc((5,5), 2, 2, 0, 0, 90, color=self.ec)
+        tr_corner = Arc((5, 5), 2, 2, 0, 0, 90, color=self.ec)
         br_corner = Arc((5, 125), 2, 2, 270, 0, 90, color=self.ec)
         bl_corner = Arc((95, 125), 2, 2, 180, 0, 90, color=self.ec)
         tl_corner = Arc((95, 5), 2, 2, 90, 0, 90, color=self.ec)
@@ -33,7 +32,7 @@ class FullField(BaseField):
         h_box = Rectangle((40.84, 5), 18.32, 5.5, facecolor=self.fc, edgecolor=self.ec)
         h_penalty_mark = Circle((50, 16), 0.5, facecolor=self.ec, edgecolor=self.ec)
         h_penalty_arc = Arc((50, 16), 18.3, 18.3, 0, 37, 143, color=self.ec)
-        h_arrow = FancyArrowPatch((95.8, 5), (95.8, 20), arrowstyle=simple_arrow_style, color="black")
+        h_arrow = FancyArrowPatch((95.8, 5), (95.8, 20), arrowstyle=simple_arrow, color="black")
 
         midway_circle = Circle((50, 65), 9.15, facecolor=self.fc, edgecolor=self.ec)
         midway_line = Line2D((5, 95), (65, 65), color=self.ec)
@@ -44,7 +43,7 @@ class FullField(BaseField):
         a_box = Rectangle((40.84, 119.5), 18.32, 5.5, facecolor=self.fc, edgecolor=self.ec)
         a_penalty_mark = Circle((50, 114), 0.5, facecolor=self.ec, edgecolor=self.ec)
         a_penalty_arc = Arc((50, 114), 18.3, 18.3, 180, 37, 143, color=self.ec)
-        a_arrow = FancyArrowPatch((95.8, 125), (95.8, 110), arrowstyle=simple_arrow_style, color="black")
+        a_arrow = FancyArrowPatch((95.8, 125), (95.8, 110), arrowstyle=simple_arrow, color="black")
 
         now = datetime.now()
 
